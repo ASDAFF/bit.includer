@@ -41,7 +41,7 @@ Class itsfera_includer extends CModule
             $step = IntVal($step);
             if ($step < 2)
             {
-                $APPLICATION->IncludeAdminFile("Установка модуля". $this->MODULE_ID, $DOCUMENT_ROOT.$this->sModulePath.$this->MODULE_ID."/install/step1.php");
+                $APPLICATION->IncludeAdminFile( GetMessage("CONTENT_INCLUDER_MODULE_INSTALL_TITLE"). $this->MODULE_ID, $DOCUMENT_ROOT.$this->sModulePath.$this->MODULE_ID."/install/step1.php");
             }elseif ($step == 2){
 
                 RegisterModule($this->MODULE_ID);
@@ -50,11 +50,18 @@ Class itsfera_includer extends CModule
                 $this->InstallFiles();
 
                 $sSiteId = array_key_exists($_REQUEST['site_id'],$arSitesList)?$_REQUEST['site_id']:SITE_ID;
-                if ($_REQUEST['install_sample_iblock']=="Y"){
+                if ($_REQUEST['install_sample_iblock']==="Y"){
                     $this->createSampleIblock( $sSiteId );
                 }
 
-                $APPLICATION->IncludeAdminFile("Установка модуля 1",  $DOCUMENT_ROOT.$this->sModulePath.$this->MODULE_ID."/install/step2.php");
+                if ($_REQUEST['disable_new_editor']==="Y") {
+                    COption::setOptionString("fileman", "use_editor_3", "");
+                }
+
+                COption::SetOptionString("itsfera.includer", "include_jquery", $_REQUEST['include_jquery_for_component']==="Y"?"Y":"N");
+
+
+                $APPLICATION->IncludeAdminFile( GetMessage("CONTENT_INCLUDER_MODULE_INSTALL_TITLE"),  $DOCUMENT_ROOT.$this->sModulePath.$this->MODULE_ID."/install/step2.php");
             }
         }
     }
@@ -65,7 +72,7 @@ Class itsfera_includer extends CModule
         UnRegisterModule($this->MODULE_ID);
         UnRegisterModuleDependences("main", "OnEndBufferContent", $this->MODULE_ID, '\Itsfera\Includer\Handlers', "OnEndBufferContentHandler");
         UnRegisterModuleDependences("fileman", "OnIncludeHTMLEditorScript", $this->MODULE_ID, '\Itsfera\Includer\Handlers', "OnIncludeHTMLEditorScriptHandler");
-        $APPLICATION->IncludeAdminFile("Деинсталяция модуля ". $this->MODULE_ID, $DOCUMENT_ROOT.$this->sModulePath.$this->MODULE_ID."/install/unstep.php");
+        $APPLICATION->IncludeAdminFile( GetMessage("CONTENT_INCLUDER_MODULE_UNINSTALL_TITLE"). $this->MODULE_ID, $DOCUMENT_ROOT.$this->sModulePath.$this->MODULE_ID."/install/unstep.php");
 
     }
 

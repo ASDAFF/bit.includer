@@ -1,15 +1,14 @@
 <?
 if(!$USER->IsAdmin())
 	return;
-
 IncludeModuleLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/options.php");
 IncludeModuleLangFile(__FILE__);
 
 $arAllOptions = array(
-    array("iblock_type", "Тип информационного блока", "", array("text", 25)),
-	array("iblock_id", "ID ифнормационного блока с контентом", "0", array("text", 5 )),
-    array("include_jquery", "Подключить JQuery", "Y", array("checkbox", "Y")),
-    array("add_to_editor", "Добавить кнопки в визуальный редактор", "Y", array("checkbox", "Y")),
+    array("iblock_type",GetMessage("CONTENT_INCLUDER_OPTIONS_IBLOCK_TYPE"), "", array("text", 25)),
+	array("iblock_id", GetMessage("CONTENT_INCLUDER_OPTIONS_IBLOCK_ID"), "0", array("text", 5 )),
+    array("include_jquery", GetMessage("CONTENT_INCLUDER_OPTIONS_INCLUDE_JQUERY"), "Y", array("checkbox", "Y")),
+    array("add_to_editor", GetMessage("CONTENT_INCLUDER_OPTIONS_ADD_TO_EDITOR"), "Y", array("checkbox", "Y")),
 );
 $aTabs = array(
 	array("DIV" => "edit1", "TAB" => GetMessage("MAIN_TAB_SET"), "ICON" => "ib_settings", "TITLE" => GetMessage("MAIN_TAB_TITLE_SET")),
