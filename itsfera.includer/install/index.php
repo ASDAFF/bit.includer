@@ -13,6 +13,7 @@ Class itsfera_includer extends CModule
 
     function __construct()
     {
+        $arModuleVersion = array();
         include("version.php");
         $this->MODULE_VERSION = $arModuleVersion["VERSION"];
         $this->MODULE_VERSION_DATE = $arModuleVersion["VERSION_DATE"];
@@ -22,6 +23,7 @@ Class itsfera_includer extends CModule
         $this->MODULE_DESCRIPTION = GetMessage("CONTENT_INCLUDER_MODULE_DESC");
 
         $this->sModulePath = "/bitrix/modules/";
+        if ( strpos(__FILE__,"/local/modules/")!==false ) $this->sModulePath = "/local/modules/";
     }
 
     function DoInstall()
@@ -84,18 +86,21 @@ Class itsfera_includer extends CModule
         self::CopyDirFilesWrapper($_SERVER["DOCUMENT_ROOT"].$this->sModulePath.$this->MODULE_ID."/install/js",
             $_SERVER["DOCUMENT_ROOT"]."/bitrix/admin/htmleditor2/", true, true);
 
+        self::CopyDirFilesWrapper($_SERVER["DOCUMENT_ROOT"].$this->sModulePath.$this->MODULE_ID."/install/images",
+            $_SERVER["DOCUMENT_ROOT"]."/bitrix/images/itsfera.includer/", true, true);
 
         return true;
     }
 
     public static function CopyDirFilesWrapper($from,$to)
     {
-        if (!is_writable($to)) {
+        /*if (!is_writable($to)) {
 
             echo CAdminMessage::ShowMessage( getMessage("COPY_ERROR_DIR_IS_NOR_WRITABLE",Array ("#PATH#" => $to,"#FROM#"=>$from)) );
+            echo get_current_user();
             //echo 'Dir is not writable';
             return false;
-        }
+        }*/
         CopyDirFiles($from,$to, true, true);
     }
 
@@ -139,6 +144,7 @@ Class itsfera_includer extends CModule
     {
         DeleteDirFilesEx("/bitrix/templates/.default/components/bitrix/news.list/itsfera.includer");
         DeleteDirFilesEx("/bitrix/templates/.default/components/bitrix/news.detail/itsfera.includer");
+        DeleteDirFilesEx("/bitrix/images/itsfera.includer");
         return true;
     }
 
