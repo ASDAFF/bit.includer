@@ -110,7 +110,10 @@ Class itsfera_includer extends CModule
         $bm->uploadArray($arResult);
 
         COption::SetOptionString("itsfera.includer", "iblock_type", "itsfera_includer");
-        COption::SetOptionString("itsfera.includer", "iblock_id", $this->getIBlockIdByCode("itsfera_includer_content"));
+        COption::SetOptionString("itsfera.includer", "iblock_id", $iIblockId=$this->getIBlockIdByCode("itsfera_includer_content"));
+
+        define("FOR_ALL_USERS_GROUP_ID",2); //Id групп для всех пользователей по-умолчанию
+        CIBlock::SetPermission($iIblockId, Array(FOR_ALL_USERS_GROUP_ID=>"R"));
 
     }
 
