@@ -27,7 +27,8 @@
 В модуле добавлены обработчики события OnBeforeMakeList с параметрами ($iSectionId,$iIblockID) для [list] и OnBeforeMakeDetail с параметрами ($iElementId,$iIblockID) для [detail]
 
 Пример использования обработчиков событий:
-если добавим такой код в init.php
+если добавим такой код в init.php:
+```php
 AddEventHandler("itsfera.includer", "OnBeforeMakeDetail", "OnBeforeMakeDetailHandler");
 function OnBeforeMakeDetailHandler($iDetailId,$iIblockId)
 {
@@ -48,8 +49,8 @@ function OnBeforeMakeDetailHandler($iDetailId,$iIblockId)
 	   )
 	);
 	return ob_get_clean();
-		
 }
+```
 
 и вставим в новость [detail]5[/detail], то получим вывод компонента голосования c VOTE_ID=5
 
