@@ -1,21 +1,46 @@
-arButtons['my_drop_list'] =
+arButtons['itsfera_includer_list'] = ['BXButton',
+    {
+        id: 'itsfera_includer_list',
+        codeEditorMode: false,
+        //src: '[LIST]',
+        name: 'Добавить список [list][/list]',
+        handler: function()
+        {
+            this.bNotFocus = true;
+            this.pMainObj.insertHTML('[list][/list]');
+            window.bBitrixTabs = true;
+        }
+    }
+];
+arButtons['itsfera_includer_detail'] = ['BXButton',
+    {
+        id: 'itsfera_includer_detail',
+        codeEditorMode: false,
+        //src: '[DETAIL]',
+        name: 'Добавить элемент [detail][/detail]',
+        handler: function()
+        {
+            this.bNotFocus = true;
+            this.pMainObj.insertHTML('[detail][/detail]');
+            window.bBitrixTabs = true;
+        }
+    }
+];
+
+arButtons['itsfera_includer_drop'] =
     ['BXEdList',
         {
-            id: 'DropList',
+            id: 'itsfera_includer_drop',
             field_size: 75,
             title: '(itsfera.includer)',
             disableOnCodeView: true,
             values: window.arSections,
 
-            /*OnSelectionChange: function (){
-                this.SelectByVal(this.pMainObj.queryCommand('FontName'));
-            },*/
             OnChange: function (selected){
                 this.bNotFocus = true;
                 this.pMainObj.insertHTML(selected['value'])
                 window.bBitrixTabs = true;
             },
-//text-overflow : ellipsis;
             OnDrawItem: function (item){return '<span style="white-space: nowrap; font-family:'+item['name']+';font-size: 10pt;">'+item['name']+'</span>';}
         }
     ];
@@ -24,9 +49,9 @@ arButtons['my_drop_list'] =
 
 if(!window.lightMode)
 {
-  //  oBXEditorUtils.appendButton('closed_content_1', arButtons['closed_content_1'], 'standart');
-   // oBXEditorUtils.appendButton('closed_content_2', arButtons['closed_content_2'], 'standart');
-    oBXEditorUtils.appendButton('DropList', arButtons['my_drop_list'], 'standart');
+    oBXEditorUtils.appendButton('itsfera_includer_list', arButtons['itsfera_includer_list'], 'standart');
+    oBXEditorUtils.appendButton('itsfera_includer_detail', arButtons['itsfera_includer_detail'], 'standart');
+    oBXEditorUtils.appendButton('itsfera_includer_drop', arButtons['itsfera_includer_drop'], 'standart');
 }
 else
 {
@@ -35,5 +60,6 @@ else
         if (arGlobalToolbar[bxi +1] == 'line_end')
             break;
     }
-    arGlobalToolbar = arGlobalToolbar.slice(0, bxi).concat([arButtons['my_drop_list']], arGlobalToolbar.slice(bxi + 1));
+    arAddedButtons = [arButtons['itsfera_includer_list'],arButtons['itsfera_includer_detail'],arButtons['itsfera_includer_drop']];
+    arGlobalToolbar = arGlobalToolbar.slice(0, bxi).concat(arAddedButtons, arGlobalToolbar.slice(bxi + 1));
 }
