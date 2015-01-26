@@ -14,12 +14,12 @@
 
 ![Настройки](options.jpg)
 
-2. Где угодно в тексте на сайте добавляете мета тег [list]section_code_or_id[/list] или [detail]element_code_or_id[/detail],
+1. Где угодно в тексте на сайте добавляете мета тег [list]section_code_or_id[/list] или [detail]element_code_or_id[/detail],
 где section_code_or_id - это либо код, либо айди раздела, а element_code_or_id - соответственно код или айди элемента инфоблока заданного в настройках
 
 ![Визуальный редактор](visual_editor.jpg)
 
-3. Все.
+1. Все.
 
 В результате вместо мета тегов вставятся компоненты news.list вместо [list] и news.detail вместо [detail].
 Вставляемые компоненты используют шаблоны news.list/itsfera.includer и news.detail/itsfera.includer ,
