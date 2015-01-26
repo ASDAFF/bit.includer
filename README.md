@@ -16,10 +16,13 @@
 
 2. Где угодно в тексте на сайте добавляете мета тег [list]section_code_or_id[/list] или [detail]element_code_or_id[/detail],
 где section_code_or_id - это либо код, либо айди раздела, а element_code_or_id - соответственно код или айди элемента инфоблока заданного в настройках
+
+![Визуальный редактор](visual_editor.jpg)
+
 3. Все.
 
 В результате вместо мета тегов вставятся компоненты news.list вместо [list] и news.detail вместо [detail].
-Компоненты используют шаблоны news.list/itsfera.includer и news.detail/itsfera.includer , 
+Вставляемые компоненты используют шаблоны news.list/itsfera.includer и news.detail/itsfera.includer ,
 которые после установки находятся в папке шаблона /bitrix/templates/.default/components/bitrix/ .
 и которые можно изменять под свой вкус.
 
@@ -60,7 +63,10 @@ function OnBeforeMakeDetailHandler($iDetailId,$iIblockId)
 
 и вставим в новость [detail]5[/detail], то получим вывод компонента голосования c VOTE_ID=5
 
-Возможные проблемы
+##Требования
+ РHP >= 5.3.0
+
+###Возможные проблемы
 * Неверно задан инфоблок в настройках модуля
 * Неверно установлены права для инфоблока.
 * Несуществует элемент или раздел с таким кодом или айди.

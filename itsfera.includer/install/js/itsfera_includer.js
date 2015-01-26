@@ -2,7 +2,7 @@ arButtons['itsfera_includer_list'] = ['BXButton',
     {
         id: 'itsfera_includer_list',
         codeEditorMode: false,
-        src: '/bitrix/images/itsfera.includer/itsfera_list.gif',
+        src: '/bitrix/images/itsfera.includer/itsfera_list.png',
         name: 'Добавить список [list][/list]',
         handler: function()
         {
@@ -16,7 +16,7 @@ arButtons['itsfera_includer_detail'] = ['BXButton',
     {
         id: 'itsfera_includer_detail',
         codeEditorMode: false,
-        src: '/bitrix/images/itsfera.includer/itsfera_detail.gif',
+        src: '/bitrix/images/itsfera.includer/itsfera_detail.png',
         name: 'Добавить элемент [detail][/detail]',
         handler: function()
         {
