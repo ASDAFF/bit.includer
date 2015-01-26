@@ -10,6 +10,25 @@ $arAllOptions = array(
     array("include_jquery", GetMessage("CONTENT_INCLUDER_OPTIONS_INCLUDE_JQUERY"), "Y", array("checkbox", "Y")),
     array("add_to_editor", GetMessage("CONTENT_INCLUDER_OPTIONS_ADD_TO_EDITOR"), "Y", array("checkbox", "Y")),
 );
+
+
+CModule::IncludeModule("iblock");
+$dbIBlockType = CIBlockType::GetList();
+$arIBTypes = array();
+$arIB = array();
+while ($arIBType = $dbIBlockType->Fetch()){
+    if ($arIBTypeData = CIBlockType::GetByIDLang($arIBType["ID"], LANG)){
+        $arIB[$arIBType['ID']] = array();
+        $arIBTypes[$arIBType['ID']] = '['.$arIBType['ID'].'] '.$arIBTypeData['NAME'];
+    }
+}
+
+$dbIBlock = CIBlock::GetList(array('SORT' => 'ASC'), array('ACTIVE' => 'Y'));
+while ($arIBlock = $dbIBlock->Fetch()){
+    $arIB[$arIBlock['IBLOCK_TYPE_ID']][$arIBlock['ID']] = ($arIBlock['CODE'] ? '['.$arIBlock['CODE'].'] ' : '').$arIBlock['NAME'];
+}
+
+
 $aTabs = array(
 	array("DIV" => "edit1", "TAB" => GetMessage("MAIN_TAB_SET"), "ICON" => "ib_settings", "TITLE" => GetMessage("MAIN_TAB_TITLE_SET")),
 );
@@ -43,8 +62,70 @@ $tabControl->Begin();
 ?>
 <form method="post" action="<?echo $APPLICATION->GetCurPage()?>?mid=<?=urlencode($mid)?>&amp;lang=<?echo LANGUAGE_ID?>">
 <?$tabControl->BeginNextTab();?>
+    <tr>
+        <td>
+            <label for="iblock_type"><?=GetMessage("CONTENT_INCLUDER_OPTIONS_IBLOCK_TYPE")?>:</label></td>
+        <td>
+            <select name="iblock_type" onchange="changeIblockList(this.value)">
+                <option value=""><?= GetMessage('CAL_NOT_SET')?></option>
+                <?foreach ($arIBTypes as $ibtype_id => $ibtype_name):?>
+                    <option value="<?= $ibtype_id?>" <?if($ibtype_id == COption::GetOptionString("itsfera.includer", 'iblock_type')){echo ' selected="selected"';}?>><?= $ibtype_name?></option>
+                <?endforeach;?>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><label for="iblock_id"><?=GetMessage("CONTENT_INCLUDER_OPTIONS_IBLOCK_ID")?>:</label></td>
+        <td>
+            <select id="iblock_id" name="iblock_id">
+                <?if (COption::GetOptionString("itsfera.includer", 'iblock_type',0)!==0):?>
+                    <?foreach ($arIB[ COption::GetOptionString("itsfera.includer", 'iblock_type',0) ] as $iblock_id => $iblock):?>
+                        <option value="<?= $iblock_id?>"<? if($iblock_id == COption::GetOptionString("itsfera.includer", 'iblock_id')){echo ' selected="selected"';}?>><?= $iblock?></option>
+                    <?endforeach;?>
+                <?else:?>
+                    <option value="">Not set</option>
+                <?endif;?>
+
+            </select>
+        </td>
+    </tr>
+
+    <script>
+
+        var arIblocks = <?= CUtil::PhpToJsObject($arIB)?>;
+        function changeIblockList(value, index)
+        {
+            if (null == index)
+                index = 0;
+
+            var
+                i, j,
+                arControls = [
+                    BX('iblock_id')
+                ];
+
+            for (i = 0; i < arControls.length; i++)
+            {
+                if (arControls[i])
+                    arControls[i].options.length = 0;
+
+                if (!value)
+                {
+                    arControls[i].options[0] = new Option('<?= GetMessage('CAL_NOT_SET')?>', '');
+                    continue;
+                }
+
+                for (j in arIblocks[value])
+                    arControls[i].options[arControls[i].options.length] = new Option(arIblocks[value][j], j);
+            }
+        }
+    </script>
+
+
+
 	<?
 	foreach($arAllOptions as $arOption):
+        if ( in_array($arOption[0],array('iblock_type','iblock_id')) ) continue;
 		$val = COption::GetOptionString("itsfera.includer", $arOption[0], $arOption[2]);
 		$type = $arOption[3];
 	?>
