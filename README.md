@@ -75,3 +75,5 @@ function OnBeforeMakeDetailHandler($iDetailId,$iIblockId)
 	+ отключить подключение jQuery в настройках модуля
 	+ изменить шаблон компонента news.list/itsfera.includer
 * Выпадающий список доступен только в старом визуальном редакторе и если в настройках усановлена галочка "Добавить кнопки в визуальный редактор:"
+
+Логотип создан с помощью сервиса http://hipsterlogogenerator.com/
