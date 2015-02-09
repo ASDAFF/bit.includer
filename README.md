@@ -1,4 +1,4 @@
-#itsfera.includer модуль для 1c-bitrix
+#bit.includer модуль для 1c-bitrix
 
 Модуль для встраивания компонентов в динамический контент, например для вставки фото слайдера в новость или статью.
 
@@ -22,7 +22,7 @@
 3) Все.
 
 В результате вместо мета тегов вставятся компоненты news.list вместо [list] и news.detail вместо [detail].
-Вставляемые компоненты используют шаблоны news.list/itsfera.includer и news.detail/itsfera.includer ,
+Вставляемые компоненты используют шаблоны news.list/bit.includer и news.detail/bit.includer ,
 которые после установки находятся в папке шаблона /bitrix/templates/.default/components/bitrix/ .
 и которые можно изменять под свой вкус.
 
@@ -38,7 +38,7 @@
 если добавим такой код в init.php:
 
 ```php
-AddEventHandler("itsfera.includer", "OnBeforeMakeDetail", "OnBeforeMakeDetailHandler");
+AddEventHandler("bit.includer", "OnBeforeMakeDetail", "OnBeforeMakeDetailHandler");
 function OnBeforeMakeDetailHandler($iDetailId,$iIblockId)
 {
     ob_start();
@@ -73,7 +73,5 @@ function OnBeforeMakeDetailHandler($iDetailId,$iIblockId)
     + В таких случаях на месте мета тега [detail] появится текст: "Элемент не найден!"
 * При выводе слайдер произошел конфликт jQuery. Варианты решения:
 	+ отключить подключение jQuery в настройках модуля
-	+ изменить шаблон компонента news.list/itsfera.includer
+	+ изменить шаблон компонента news.list/bit.includer
 * Выпадающий список доступен только в старом визуальном редакторе и если в настройках усановлена галочка "Добавить кнопки в визуальный редактор:"
-
-Логотип создан с помощью сервиса http://hipsterlogogenerator.com/
