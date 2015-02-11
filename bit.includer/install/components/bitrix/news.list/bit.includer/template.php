@@ -1,7 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?><?
 if (!isset($arResult["ITEMS"][0])) return false;
 if ( !defined("INCLUDER_JS_ALREADY_ADDED") ):
-    if (COption::GetOptionString("bit.includer", "include_jquery", "N")=="Y"):?>
+    if (COption::GetOptionString("itsfera.includer", "include_jquery", "N")=="Y"):?>
         <script type="text/javascript" src="<?php echo $templateFolder;?>/js/jquery-1.9.1.min.js"></script><?
     endif;
     ?><script type="text/javascript" src="<?php echo $templateFolder;?>/js/jssor.slider.mini.js"></script>

@@ -1,7 +1,5 @@
 <?if(!check_bitrix_sessid()) return;
 IncludeModuleLangFile(__FILE__);
-
-echo CAdminMessage::ShowNote( GetMessage("MODULE_REMOVE_SUCCESS"));
 ?><form action="<?echo $APPLICATION->GetCurPage()?>">
     <?=bitrix_sessid_post()?>
     <p><?echo GetMessage("CONTENT_INCLUDER_REMOVE_PARAMS"); ?></p>

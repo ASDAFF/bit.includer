@@ -2,7 +2,7 @@
 return Array (
     '0' => Array (
         'LID' => 'ru',
-        'NAME' => 'bit Includer',
+        'NAME' => 'Includer Content',
         'SECTION_NAME' => '',
         'ELEMENT_NAME' => '',
         'ID' => 'bit_includer',
@@ -10,7 +10,7 @@ return Array (
         'SORT' => '500',
         'LANG' => Array (
             LANGUAGE_ID => Array (
-                'NAME' => 'bit Includer',
+                'NAME' => 'Includer Content',
                 'SECTION_NAME' => '',
                 'ELEMENT_NAME' => '',
             ),

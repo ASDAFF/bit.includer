@@ -31,7 +31,7 @@ Class bit_includer extends CModule
 
     function DoInstall()
     {
-        global $APPLICATION,$DOCUMENT_ROOT,$USER, $step,$arSitesList;
+        global $APPLICATION,$USER, $step,$arSitesList;
 
 
         if ($USER->IsAdmin())
@@ -112,12 +112,10 @@ Class bit_includer extends CModule
 
     function createSampleIblock( $sSiteId )
     {
-        global $APPLICATION;
-        //include($this->sModuleInstallFullPath."bm.php");
+        include($this->sModuleInstallFullPath."bitrixmigration.php");
         $arResult = include($this->sModuleInstallFullPath."import.php"); //$sSiteId добавляется в массив в этом файле
 
-        $bm = new Bit\Includer\BitrixMigration($this->sModuleInstallFullPath);
-        $bm->sStoreFilesDir = 'bm_files/';
+        $bm = new Bit\Includer\BitrixMigration($this->sModuleInstallFullPath,'bm_files/');
         $bm->uploadArray($arResult);
 
         COption::SetOptionString("bit.includer", "iblock_type", "bit_includer");

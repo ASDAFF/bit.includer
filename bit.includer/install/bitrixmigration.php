@@ -13,7 +13,6 @@ use Bitrix\Main\Entity;
 
 class BitrixMigration
 {
-    public $sStoreFilesDir = '/bm_files/';
     public $bImportElements = true;
     protected $sFullFilesPath;
     protected $arResult = array();
@@ -47,11 +46,11 @@ class BitrixMigration
         "DETAIL_TEXT_TYPE","DATE_CREATE","TIMESTAMP_X","TAGS"
     );
 
-    public function __construct($scriptPath)
+    public function __construct($scriptPath, $sStoreFilesDir='bm_files/')
     {
         \CModule::IncludeModule("iblock");
         $this->scriptName = basename( $scriptPath );
-        $this->sFullFilesPath = $scriptPath.$this->sStoreFilesDir;
+        $this->sFullFilesPath = $scriptPath.$sStoreFilesDir;
     }
 
 
