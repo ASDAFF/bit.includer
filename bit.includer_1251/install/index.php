@@ -117,7 +117,7 @@ Class bit_includer extends CModule
     function createSampleIblock( $sSiteId )
     {
         include($this->sModuleInstallFullPath."bitrixmigration.php");
-        $arResult = include($this->sModuleInstallFullPath."import.php"); //$sSiteId РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РІ РјР°СЃСЃРёРІ РІ СЌС‚РѕРј С„Р°Р№Р»Рµ
+        $arResult = include($this->sModuleInstallFullPath."import.php"); //$sSiteId добавляется в массив в этом файле
 
         $bm = new Bit\Includer\BitrixMigration($this->sModuleInstallFullPath,'bm_files/');
         $bm->uploadArray($arResult);
@@ -126,13 +126,13 @@ Class bit_includer extends CModule
         COption::SetOptionString("bit.includer", "iblock_id", $iIblockId=$this->getIBlockIdByCode("bit_includer_content"));
         COption::SetOptionString("bit.includer", "demo_iblock_id", $iIblockId);
 
-        define("FOR_ALL_USERS_GROUP_ID",2); //Id РіСЂСѓРїРї РґР»СЏ РІСЃРµС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№ РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ
+        define("FOR_ALL_USERS_GROUP_ID",2); //Id групп для всех пользователей по-умолчанию
         CIBlock::SetPermission($iIblockId, Array(FOR_ALL_USERS_GROUP_ID=>"R"));
 
     }
 
     /**
-     *РЈРґР°Р»СЏРµРј СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅС‹Р№ РёРЅС„РѕР±Р»РѕРє СЃ РїСЂРёРјРµСЂР°РјРё. Р•РіРѕ ID С…СЂР°РЅРёС‚СЃСЏ РІ РѕРїС†РёРё РјРѕРґСѓР»СЏ demo_iblock_id
+     *Удаляем установленный инфоблок с примерами. Его ID хранится в опции модуля demo_iblock_id
      */
     function removeSampleIblock()
     {
@@ -150,7 +150,7 @@ Class bit_includer extends CModule
                     $DB->Commit();
                 }
 
-                //РЈРґР°Р»СЏРµРј С‚РёРї РёРЅС„РѕР±Р»РѕРєР° РµСЃР»Рё РІ РЅРµРј РЅРµС‚ РґСЂСѓРіРёС… РёРЅС„РѕР±Р»РѕРєРѕРІ
+                //Удаляем тип инфоблока если в нем нет других инфоблоков
                 $res = CIBlock::GetList(
                     Array(),
                     Array(
