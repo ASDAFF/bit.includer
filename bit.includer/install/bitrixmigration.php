@@ -506,8 +506,8 @@ class BitrixMigration
         "NEW_SRC" => "17.jpg",
      * */
     protected function prepareFile( $arFile )
-    {
-        if (file_exists( $this->sFullFilesPath.$arFile['NEW_SRC'] )) {
+    {        
+	if (is_array($arFile) && array_key_exists('NEW_SRC',$arFile) && file_exists( $this->sFullFilesPath.$arFile['NEW_SRC'] )) {
             return \CFile::MakeFileArray($this->sFullFilesPath.$arFile['NEW_SRC']);
         }
         return false;
