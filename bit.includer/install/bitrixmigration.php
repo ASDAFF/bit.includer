@@ -64,10 +64,10 @@ class BitrixMigration
             foreach($arType['IBLOCKS'] as $arIblock){
                 $arIblock['IBLOCK_TYPE_ID'] = $arType['ID'];
                 $iNewIblockId = $this->addIblock( $arIblock );
-                foreach($arIblock['PROPS'] as $arProperty){
+                /*foreach($arIblock['PROPS'] as $arProperty){
                     $arProperty['IBLOCK_ID'] = $iNewIblockId;
                     $this->addProperty( $arProperty );
-                }
+                }*/
                 if ( count($arIblock['SECTIONS'])>0 ){
                     $this->uploadSections( $arIblock, $iNewIblockId );
                 }
@@ -192,7 +192,7 @@ class BitrixMigration
 
     protected function addType( $arType )
     {
-        $db_iblock_type = \CIBlockType::GetList(false, array("=ID"=>$arType["ID"]));
+        $db_iblock_type = \CIBlockType::GetList(array("ID"=>"ASC"), array("=ID"=>$arType["ID"]));
         if($ar_iblock_type = $db_iblock_type->Fetch()){
             $this->addMessage('Тип инфоблока '.$arType["ID"].' уже есть.',true);
         }else {
@@ -205,7 +205,7 @@ class BitrixMigration
     protected function addIblock($arIblock)
     {
         $res = \CIBlock::GetList(
-            Array(),
+            array("ID"=>"ASC"),
             Array(
                 'TYPE'=>$arIblock['IBLOCK_TYPE_ID'],
                 "CODE"=>$arIblock['CODE']
@@ -248,7 +248,7 @@ class BitrixMigration
     protected function getIbStructure()
     {
         \CModule::IncludeModule("iblock");
-        $db_iblock_type = \CIBlockType::GetList(array(),array()); //"id"=>"help"
+        $db_iblock_type = \CIBlockType::GetList(array("ID"=>"ASC"),array()); //"id"=>"help"
         $arResult = array();
         while($ar_iblock_type = $db_iblock_type->Fetch()){
 
@@ -275,7 +275,7 @@ class BitrixMigration
     {
         $arResult = array();
         $res = \CIBlock::GetList(
-            Array(),
+            array("ID"=>"ASC"),
             Array(
                 'TYPE'=>$type,
         ), true);
